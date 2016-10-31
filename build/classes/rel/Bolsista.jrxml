@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b156860e-2a87-469f-8d59-222f35013d51">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     bolsista.`idUsuario` AS bolsista_idUsuario,
+     bolsista.`idServidor` AS bolsista_idServidor,
+     bolsista.`matricula` AS bolsista_matricula,
+     usuario.`idUsuario` AS usuario_idUsuario,
+     usuario.`nomeCompleto` AS usuario_nomeCompleto,
+     usuario.`cpf` AS usuario_cpf,
+     usuario.`senha` AS usuario_senha
+FROM
+     `usuario` usuario INNER JOIN `bolsista` bolsista ON usuario.`idUsuario` = bolsista.`idUsuario`]]>
+	</queryString>
+	<field name="bolsista_idUsuario" class="java.lang.Integer"/>
+	<field name="bolsista_idServidor" class="java.lang.Integer"/>
+	<field name="bolsista_matricula" class="java.lang.String"/>
+	<field name="usuario_idUsuario" class="java.lang.Integer"/>
+	<field name="usuario_nomeCompleto" class="java.lang.String"/>
+	<field name="usuario_cpf" class="java.lang.String"/>
+	<field name="usuario_senha" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="176" y="28" width="159" height="20" uuid="5d4da3cd-5b15-45cc-a11d-06c66456e968"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relação de Bolsistas]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="38" height="20" uuid="47c1417c-fb27-466d-b475-c769a11cb963"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="2" width="100" height="20" uuid="2d279502-b457-4343-85c2-3e21420e5233"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="274" y="2" width="100" height="20" uuid="2c49a075-79bb-4e3f-8806-8a0dffbf899d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Matricula]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="428" y="0" width="127" height="20" uuid="add5271f-056e-4aab-ad0e-2769d866910c"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Servidor Responsavel]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="22" width="555" height="1" uuid="7afff7f3-e7bd-4059-804e-420738dfac3f"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="38" height="20" uuid="3c1cdfb6-9da0-4abb-9188-d7099bb91e62"/>
+				<textFieldExpression><![CDATA[$F{bolsista_idUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="66" y="0" width="100" height="20" uuid="bc19978c-e454-4734-a4bc-50a9a67c839e"/>
+				<textFieldExpression><![CDATA[$F{usuario_nomeCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="274" y="0" width="100" height="20" uuid="40e635da-13ab-4c12-ab13-5fda18cc3214"/>
+				<textFieldExpression><![CDATA[$F{bolsista_matricula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="8b67b133-c86d-421b-80b5-e42796e597e1"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{bolsista_idServidor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

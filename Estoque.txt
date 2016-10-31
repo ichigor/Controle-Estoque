@@ -1,0 +1,219 @@
+-- MySQL dump 10.13  Distrib 5.6.21, for Win64 (x86_64)
+--
+-- Host: localhost    Database: estoque
+-- ------------------------------------------------------
+-- Server version	5.6.21-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `bolsista`
+--
+
+DROP TABLE IF EXISTS `bolsista`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bolsista` (
+  `idUsuario` int(11) NOT NULL,
+  `idServidor` int(11) NOT NULL,
+  `matricula` varchar(15) NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE KEY `matricula_UNIQUE` (`matricula`),
+  KEY `fk_Bolsista_Servidor1_idx` (`idServidor`),
+  CONSTRAINT `fk_Bolsista_Servidor1` FOREIGN KEY (`idServidor`) REFERENCES `servidor` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Bolsista_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bolsista`
+--
+
+LOCK TABLES `bolsista` WRITE;
+/*!40000 ALTER TABLE `bolsista` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bolsista` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `funcionario`
+--
+
+DROP TABLE IF EXISTS `funcionario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `funcionario` (
+  `idUsuario` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `tipo` char(1) NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  CONSTRAINT `fk_Funcionario_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `funcionario`
+--
+
+LOCK TABLES `funcionario` WRITE;
+/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
+INSERT INTO `funcionario` VALUES (27,'denis@gma.cas','S');
+/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `operacao`
+--
+
+DROP TABLE IF EXISTS `operacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `operacao` (
+  `idOperacao` int(11) NOT NULL AUTO_INCREMENT,
+  `idUsuario` int(11) NOT NULL,
+  `idProduto` int(11) NOT NULL,
+  `dataOperacao` date NOT NULL,
+  `quantidade` float NOT NULL,
+  `tipo` char(1) NOT NULL,
+  PRIMARY KEY (`idOperacao`),
+  KEY `fk_Usuario_has_Produto_Produto1_idx` (`idProduto`),
+  KEY `fk_Usuario_has_Produto_Usuario1_idx` (`idUsuario`),
+  CONSTRAINT `fk_Usuario_has_Produto_Produto1` FOREIGN KEY (`idProduto`) REFERENCES `produto` (`idProduto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Usuario_has_Produto_Usuario1` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `operacao`
+--
+
+LOCK TABLES `operacao` WRITE;
+/*!40000 ALTER TABLE `operacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `operacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `produto`
+--
+
+DROP TABLE IF EXISTS `produto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `produto` (
+  `idProduto` int(11) NOT NULL AUTO_INCREMENT,
+  `idUnidade` int(11) NOT NULL,
+  `localizacao` varchar(25) NOT NULL,
+  `qtdMinima` float NOT NULL,
+  `qtdAtual` float NOT NULL,
+  PRIMARY KEY (`idProduto`),
+  KEY `fk_Produto_Unidade1_idx` (`idUnidade`),
+  CONSTRAINT `fk_Produto_Unidade1` FOREIGN KEY (`idUnidade`) REFERENCES `unidade` (`idUnidade`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `produto`
+--
+
+LOCK TABLES `produto` WRITE;
+/*!40000 ALTER TABLE `produto` DISABLE KEYS */;
+/*!40000 ALTER TABLE `produto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `servidor`
+--
+
+DROP TABLE IF EXISTS `servidor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `servidor` (
+  `idUsuario` int(11) NOT NULL,
+  `siape` varchar(15) NOT NULL,
+  `sala` varchar(15) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `tipo` char(1) NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE KEY `siape_UNIQUE` (`siape`),
+  CONSTRAINT `fk_Servidor_Usuario` FOREIGN KEY (`idUsuario`) REFERENCES `usuario` (`idUsuario`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `servidor`
+--
+
+LOCK TABLES `servidor` WRITE;
+/*!40000 ALTER TABLE `servidor` DISABLE KEYS */;
+INSERT INTO `servidor` VALUES (22,'8','1','aaaa@aaa.com.br','S'),(23,'13','','a@s.com','S');
+/*!40000 ALTER TABLE `servidor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `unidade`
+--
+
+DROP TABLE IF EXISTS `unidade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `unidade` (
+  `idUnidade` int(11) NOT NULL AUTO_INCREMENT,
+  `descricao` varchar(15) NOT NULL,
+  PRIMARY KEY (`idUnidade`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unidade`
+--
+
+LOCK TABLES `unidade` WRITE;
+/*!40000 ALTER TABLE `unidade` DISABLE KEYS */;
+/*!40000 ALTER TABLE `unidade` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `nomeCompleto` varchar(45) NOT NULL,
+  `cpf` varchar(14) NOT NULL,
+  `senha` varchar(32) NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE KEY `cpf_UNIQUE` (`cpf`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (22,'CArlos srerere','999.999.999-99','234234234'),(23,'Luistt','222.222.222-22',''),(27,'Denis asdad','352.274.738-03','12345');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-10-08 21:52:25

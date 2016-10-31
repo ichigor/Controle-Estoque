@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="da55ab2d-1bc8-426b-a39a-217dc157508b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT
+     funcionario.`idUsuario` AS funcionario_idUsuario,
+     funcionario.`email` AS funcionario_email,
+     funcionario.`tipo` AS funcionario_tipo,
+     usuario.`idUsuario` AS usuario_idUsuario,
+     usuario.`nomeCompleto` AS usuario_nomeCompleto,
+     usuario.`cpf` AS usuario_cpf,
+     usuario.`senha` AS usuario_senha
+FROM
+     `usuario` usuario INNER JOIN `funcionario` funcionario ON usuario.`idUsuario` = funcionario.`idUsuario`]]>
+	</queryString>
+	<field name="funcionario_idUsuario" class="java.lang.Integer"/>
+	<field name="funcionario_email" class="java.lang.String"/>
+	<field name="funcionario_tipo" class="java.lang.String"/>
+	<field name="usuario_idUsuario" class="java.lang.Integer"/>
+	<field name="usuario_nomeCompleto" class="java.lang.String"/>
+	<field name="usuario_cpf" class="java.lang.String"/>
+	<field name="usuario_senha" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="64" splitType="Stretch">
+			<staticText>
+				<reportElement x="183" y="27" width="178" height="20" uuid="687efdda-09a5-4d39-b1ee-e5c290c4b1e6"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relação de Funcionarios]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="27" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="2" width="40" height="20" uuid="92ca0b49-5ff0-4ba6-ac1e-3e0f5e4e2639"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Codigo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="67" y="2" width="100" height="20" uuid="8b6df6ea-2aaf-483c-9f42-c38bb8df5031"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="27" height="20" uuid="a280e8f7-07eb-4bd0-a534-ea9ed0210c0e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CPF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="2" width="42" height="20" uuid="881b136d-2c3e-4ae5-b0f0-27cc6d9d6689"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[E-mail]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="527" y="0" width="28" height="20" uuid="25fc974d-277c-4d46-b6bd-c2ec5f14cdfa"/>
+				<textElement textAlignment="Justified">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="22" width="555" height="1" uuid="18aacb79-b8c5-4157-bc82-b945c18d2cb2"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="40" height="20" uuid="5a3fe7a6-b6a9-457e-8ef3-d95afa8a072b"/>
+				<textFieldExpression><![CDATA[$F{usuario_idUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="67" y="0" width="100" height="20" uuid="68dc8322-3a28-4f95-b333-8ea219118bb3"/>
+				<textFieldExpression><![CDATA[$F{usuario_nomeCompleto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="100" height="20" uuid="b8fa186a-13ab-427c-b316-ea4d109ad533"/>
+				<textFieldExpression><![CDATA[$F{usuario_cpf}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="0" width="100" height="20" uuid="484840ba-3c2b-44d9-8717-f4b8e962e2a4"/>
+				<textFieldExpression><![CDATA[$F{funcionario_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="527" y="0" width="28" height="20" uuid="9883dbc3-d3e8-48d7-914f-023068452bd0"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{funcionario_tipo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
